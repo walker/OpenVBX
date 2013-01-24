@@ -394,3 +394,4 @@ if (!function_exists('set_last_known_url'))
 		setcookie('last_known_url', $url, intval($expires), '/');
 	}
 }
+
