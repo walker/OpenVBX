@@ -1,17 +1,25 @@
 <div id="vbx-context-menu" class="context-menu">
 
 	<div id="vbx-call-sms-buttons">
-		<button class="call-button twilio-call" data-href="<?php echo site_url('messages/call') ?>"><span>Call</span></button>
+		<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
+			<?php if (isset($connect_application_sid) && !empty($connect_application_sid['value'])): ?>
+				<button class="call-button twilio-call" data-href="<?php echo site_url('messages/call') ?>"><span>Call</span></button>
+			<?php endif; ?>
+		<?php endif; ?>
 		<button class="sms-button twilio-sms" data-href="<?php echo site_url('messages/sms') ?>"><span>SMS</span></button>
 	</div>
 	
-	 <div id="vbx-client-status" class="<?php echo ($user_online == 1 ? 'online' : ''); ?>">
-		<div class="client-button-wrap">
-	     	<button class="client-button twilio-client">
-	        	<span class="isoffline">Offline</span><span class="isonline">Online</span>
-	     	</button>
-		</div>
-	 </div>
+	<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
+		<?php if(isset($connect_application_sid) && !empty($connect_application_sid['value'])): ?>
+			<div id="vbx-client-status" class="<?php echo ($user_online == 1 ? 'online' : ''); ?>">
+				<div class="client-button-wrap">
+					<button class="client-button twilio-client">
+						<span class="isoffline">Offline</span><span class="isonline">Online</span>
+					</button>
+				</div>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 
 	<div class="sms-dialog">
 		<a class="close action" href=""><span class="replace">close</span></a>
