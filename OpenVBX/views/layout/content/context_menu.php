@@ -2,7 +2,7 @@
 
 	<div id="vbx-call-sms-buttons">
 		<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
-			<?php if (isset($connect_application_sid) && !empty($connect_application_sid['value'])): ?>
+			<?php if (isset($this->application_sid) && !empty($this->application_sid)): ?>
 				<button class="call-button twilio-call" data-href="<?php echo site_url('messages/call') ?>"><span>Call</span></button>
 			<?php endif; ?>
 		<?php endif; ?>
@@ -10,7 +10,7 @@
 	</div>
 	
 	<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
-		<?php if(isset($connect_application_sid) && !empty($connect_application_sid['value'])): ?>
+		<?php if(isset($this->application_sid) && !empty($this->application_sid)): ?>
 			<div id="vbx-client-status" class="<?php echo ($user_online == 1 ? 'online' : ''); ?>">
 				<div class="client-button-wrap">
 					<button class="client-button twilio-client">
