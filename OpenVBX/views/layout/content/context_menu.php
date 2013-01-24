@@ -1,26 +1,22 @@
 <div id="vbx-context-menu" class="context-menu">
 
 	<div id="vbx-call-sms-buttons">
-		<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
-			<?php if (isset($this->application_sid) && !empty($this->application_sid)): ?>
-				<button class="call-button twilio-call" data-href="<?php echo site_url('messages/call') ?>"><span>Call</span></button>
-			<?php endif; ?>
+		<?php if(web_calling_enabled()): ?>
+			<button class="call-button twilio-call" data-href="<?php echo site_url('messages/call') ?>"><span>Call</span></button>
 		<?php endif; ?>
 		<button class="sms-button twilio-sms" data-href="<?php echo site_url('messages/sms') ?>"><span>SMS</span></button>
 	</div>
 	
-	<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
-		<?php if(isset($this->application_sid) && !empty($this->application_sid)): ?>
-			<div id="vbx-client-status" class="<?php echo ($user_online == 1 ? 'online' : ''); ?>">
-				<div class="client-button-wrap">
-					<button class="client-button twilio-client">
-						<span class="isoffline">Offline</span><span class="isonline">Online</span>
-					</button>
-				</div>
+	<?php if(web_calling_enabled()): ?>
+		<div id="vbx-client-status" class="<?php echo ($user_online == 1 ? 'online' : ''); ?>">
+			<div class="client-button-wrap">
+				<button class="client-button twilio-client">
+					<span class="isoffline">Offline</span><span class="isonline">Online</span>
+				</button>
 			</div>
-		<?php endif; ?>
+		</div>
 	<?php endif; ?>
-
+	
 	<div class="sms-dialog">
 		<a class="close action" href=""><span class="replace">close</span></a>
 		<h3>Send a Text Message</h3>
@@ -29,7 +25,7 @@
 				<label class="field-label left">To
 					<input class="small" name="to" type="text" placeholder="(555) 867 5309" value="" />
 				</label>
-				<?php if(isset($callerid_numbers) && count($callerid_numbers) > 1): ?>
+				<?php if(count_callerid_numbers() > 1): ?>
 					<label class="field-label left">From
 						<select name="from" class="small">
 							<?php foreach($callerid_numbers as $number):
@@ -44,7 +40,7 @@
 							<?php endforeach; ?>
 						</select>
 					</label>
-				<?php elseif(isset($callerid_numbers) && count($callerid_numbers) == 1): 
+				<?php elseif(count_callerid_numbers() == 1): 
 					$c = $callerid_numbers[0]; ?>
 					<input type="hidden" name="from" value="<?php echo $c->phone ?>" />
 				<?php endif; ?>
